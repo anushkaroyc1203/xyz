@@ -1,0 +1,315 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Jewellery eCommerce App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MainPage(),
+    );
+  }
+}
+
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 0;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Home Page'),
+    Text('Categories Page'),
+    Text('Cart Page'),
+    Text('Profile Page'),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // List of products to display.
+    List<String> products = [
+      "Gold Necklace",
+      "Diamond Ring",
+      "Silver Bracelet",
+      "Platinum Earrings",
+      "Pearl Pendant",
+      "Ruby Brooch",
+      "Sapphire Anklet",
+    ];
+
+    List<String> suggestedCategories = [
+      "Necklaces",
+      "Rings",
+      "Bracelets",
+      "Earrings",
+      "Pendants",
+      "Brooches",
+      "Anklets",
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lime,
+        title: Text(
+          'Luriana24',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.account_circle, color: Colors.white),
+            onPressed: () {
+              // Handle account icon press
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.attach_money_sharp, color: Colors.white),
+            onPressed: () {
+              // Handle money icon press
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.menu, color: Colors.white),
+            onPressed: () {
+              // Handle menu icon press
+            },
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.white, Colors.white],
+            ),
+          ),
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Search Bar Section
+              Container(
+                width: double
+                    .infinity, // Ensures the search bar fills the available width
+                padding: EdgeInsets.symmetric(vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(1, 2), // Shadow position
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search for jewellery...',
+                    hintStyle: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey[700],
+                      fontSize: 14,
+                    ),
+                    prefixIcon: Icon(Icons.search, color: Colors.pink[400]),
+                    suffixIcon: Icon(Icons.diamond, color: Colors.amber[400]),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 14.0, horizontal: 12.0),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.amber, width: 1.5),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.amber, width: 1.5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide:
+                          BorderSide(color: Colors.pink[400]!, width: 2.0),
+                    ),
+                  ),
+                ),
+              ),
+
+              // Ads Section - Horizontal Scroll
+              Text(
+                'Ads',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 5),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(10, (index) {
+                    return Container(
+                      width: 210,
+                      height: 180,
+                      margin: EdgeInsets.all(5),
+                      color: Colors.lime,
+                      child: Center(child: Text('Ad ${index + 1}')),
+                    );
+                  }),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // We Provide Section - Horizontal Scroll
+              Text(
+                'We Provide',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(products.length, (index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Handle product selection
+                      },
+                      child: Container(
+                        width: 210,
+                        height: 180,
+                        margin: EdgeInsets.all(5),
+                        color: Colors.grey[500],
+                        child: Center(
+                          child: Text(
+                            products[index],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // Suggested Categories Section - Horizontal Scroll
+              Text(
+                'Suggested Categories',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(suggestedCategories.length, (index) {
+                    return Container(
+                      width: 210,
+                      height: 180,
+                      margin: EdgeInsets.all(5),
+                      color: Colors.blue[200],
+                      child: Center(
+                        child: Text(
+                          suggestedCategories[index],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // Suggested Products Section - Horizontal Scroll
+              Text(
+                'Suggested Products',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(products.length, (index) {
+                    return Container(
+                      width: 210,
+                      height: 180,
+                      margin: EdgeInsets.all(5),
+                      color: Colors.green[200],
+                      child: Center(
+                        child: Text(
+                          products[index],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // About Us Section
+              Text(
+                'About Us',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'This is an ECOMMERCE APP designed for jewellery shopping.',
+                style: TextStyle(fontSize: 14),
+              ),
+              SizedBox(height: 100),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.pink,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Categories',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.redAccent,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
